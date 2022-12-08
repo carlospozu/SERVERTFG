@@ -6,10 +6,9 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-data class Jugadores (var nombre: String, var stack: Int){
-    @Id
-    @GeneratedValue
-    var id = 0
+data class Jugadores (var nombre: String, var stack: Int, @Id var id: Int){
+
+
     var turno= false
     var vivo= true
     var bb = false

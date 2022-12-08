@@ -41,9 +41,9 @@ class UsuarioController(private val usuarioRepository: UsuariosRepository, priva
         return usuarioRepository.findAll()
     }
 
-    @GetMapping("jugador/{nombre}/{stack}")
-    fun jugadores(@PathVariable nombre: String, @PathVariable stack: Int):Any{
-        val jug = Jugadores(nombre, stack)
+    @GetMapping("jugador/{nombre}/{stack}/{id}")
+    fun jugadores(@PathVariable nombre: String, @PathVariable stack: Int, @PathVariable id: Int):Any{
+        val jug = Jugadores(nombre, stack, id)
         jugadoresRepository.save(jug)
         return jug
     }
@@ -51,8 +51,14 @@ class UsuarioController(private val usuarioRepository: UsuariosRepository, priva
     @GetMapping("mostrarJug/{id}")
     fun descargarJug(@PathVariable id: Int): Any {
         val jugOptinal = jugadoresRepository.findById(id)
-        return jugOptinal.get()
-    }
+        return if (jugOptinal.isPresent) {
+            jugOptinal.get()
+            } else {
+                "Juagdor No existente"
+            }
+        }
+
+
 
     @GetMapping("fold/{id}")
     fun foldear(@PathVariable id: Int) {
